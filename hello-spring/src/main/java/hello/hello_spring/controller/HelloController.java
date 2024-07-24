@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,5 +25,39 @@ public class HelloController {
     public String helloMvc(@RequestParam("name") String name, Model model) {
         model.addAttribute("name", name);
         return "hello-template";
+    }
+
+    @GetMapping("hello-string")
+    @ResponseBody
+    // 기존의 template 방식은 html 파일에서 일부 수정을 거치는 과정이라면
+    // ResponseBody 어노테이션은 http의 body부에 직접 보내는 것
+    // viewResolver 대신에 HttpMessageConverter가 동작
+    public String helloString(@RequestParam("name") String name) {
+        return "hello" + name;
+    }
+
+    @GetMapping("hello-api")
+    @ResponseBody
+    public Hello helloApi(@RequestParam("name") String name) {
+        Hello hello = new Hello();
+        hello.setName(name);
+        return hello;
+    }
+
+    static class Hello {
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        private String name;
+
+        public Hello() {
+        }
+
+
     }
 }
