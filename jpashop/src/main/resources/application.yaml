@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    url: jdbc:h2:tcp://localhost/~/jpashop;
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: create  # 애플리케이션 실행 시점에 테이블을 drop하고 다시 생성
+    properties:
+      hibernate:
+        format_sql: true
+#       show_sql: true  # System.out에 hibernate 실행 SQL을 남긴다
+logging:
+  level:
+    org.hibernate.sql: debug  # logger를 통해 hibernate 실행 SQL을 남긴다
+# org.hibernate.type: trace #스프링 부트 2.x, hibernate5
+    org.hibernate.orm.jdbc.bind: trace #스프링 부트 3.x, hibernate6

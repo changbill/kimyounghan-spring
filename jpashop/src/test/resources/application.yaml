@@ -1,0 +1,23 @@
+# 스프링은 설정이 없다면 memory DB를 자동으로 등록해준다. ddl-auto는 기본값이 create-drop
+# 그렇다면 H2 DB를 어떻게 알고 등록했을까? build.gradle에 H2 DB를 등록해뒀는데
+# 이걸 통해 H2 DB인지 알고 등록한 것
+
+spring:
+#  datasource:
+#    url: jdbc:h2:mem:test # memory DB. spring에서 memory를 할당해 인메모리 데이터베이스를 구축해준다.
+#    username: sa
+#    password:
+#    driver-class-name: org.h2.Driver
+#
+#  jpa:
+#    hibernate:
+#      ddl-auto: create  # 애플리케이션 실행 시점에 테이블을 drop하고 다시 생성
+#    properties:
+#      hibernate:
+#        format_sql: true
+#       show_sql: true  # System.out에 hibernate 실행 SQL을 남긴다
+logging:
+  level:
+    org.hibernate.sql: debug  # logger를 통해 hibernate 실행 SQL을 남긴다
+# org.hibernate.type: trace #스프링 부트 2.x, hibernate5
+    org.hibernate.orm.jdbc.bind: trace #스프링 부트 3.x, hibernate6
