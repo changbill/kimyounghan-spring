@@ -48,4 +48,13 @@ public abstract class Item {
         }
         this.stockQuantity = restStock;
     }
+
+    /**
+     *
+     */
+    public void editItem(String name, int price, int stockQuantity) {
+        this.setPrice(price);
+        this.setName(name);
+        this.setStockQuantity(stockQuantity);
+    }
 }
