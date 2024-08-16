@@ -18,23 +18,19 @@ public class JpaMain {
         //code
         try {
 
-            Member member1 = new Member();
-            member1.setUsername("A");
+            Movie movie = new Movie();
+            movie.setDirector("director");
+            movie.setActor("actor");
+            movie.setName("name");
+            movie.setPrice(123);
+            em.persist(movie);
 
-            Member member2 = new Member();
-            member2.setUsername("B");
+            em.flush();
+            em.clear();
 
-            Member member3 = new Member();
-            member3.setUsername("C");
+            Item item = em.find(Item.class, movie.getId());
+            System.out.println("Item : " + item);
 
-            System.out.println("====================");
-            em.persist(member1);
-            em.persist(member2);
-            em.persist(member3);
-            System.out.println("member.id : " + member1.getId());
-            System.out.println("member.id : " + member2.getId());
-            System.out.println("member.id : " + member3.getId());
-            System.out.println("====================");
             tx.commit();
         } catch(Exception e) {
             tx.rollback();
