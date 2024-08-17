@@ -2,6 +2,8 @@ package hellojpa;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 public class JpaMain {
 
     public static void main(String[] args) {
@@ -18,22 +20,25 @@ public class JpaMain {
         //code
         try {
 
-            Movie movie = new Movie();
-            movie.setDirector("director");
-            movie.setActor("actor");
-            movie.setName("name");
-            movie.setPrice(123);
-            em.persist(movie);
+            Child child1 = new Child();
+            Child child2 = new Child();
+
+            Parent parent = new Parent();
+            parent.addChild(child1);
+            parent.addChild(child2);
+
+            em.persist(parent);
 
             em.flush();
             em.clear();
 
-            Item item = em.find(Item.class, movie.getId());
-            System.out.println("Item : " + item);
+            Parent findParent = em.find(Parent.class, parent.getId());
+            findParent.getChildList().remove(0);
 
             tx.commit();
         } catch(Exception e) {
             tx.rollback();
+            e.printStackTrace();
         } finally {
             em.close();
         }

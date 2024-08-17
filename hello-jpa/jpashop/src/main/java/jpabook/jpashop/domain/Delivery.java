@@ -1,9 +1,8 @@
 package jpabook.jpashop.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
+
+import static jakarta.persistence.FetchType.LAZY;
 
 @Entity
 public class Delivery extends BaseEntity {
@@ -16,6 +15,6 @@ public class Delivery extends BaseEntity {
     private String zipcode;
     private DeliveryStatus deliveryStatus;
 
-    @OneToOne(mappedBy = "delivery")
+    @OneToOne(mappedBy = "delivery", fetch = LAZY)
     private Order order;
 }
