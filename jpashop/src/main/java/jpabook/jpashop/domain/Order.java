@@ -1,10 +1,12 @@
 package jpabook.jpashop.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.BatchSize;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ public class Order {
     @Column(name = "order_id")
     private Long id;
 
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")     // foreign key 이름 member_id로 지정
     private Member member;
@@ -34,8 +37,10 @@ public class Order {
      */
     // cascade를 왜 사용하는지 모르겠다면 사용하지 말고 나중에 리팩토링 때 사용해보자
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @BatchSize(size = 1000)     // batch size 일부 적용. xToOne 관계의 경우 class 어노테이션에 추가
     private List<OrderItem> orderItems = new ArrayList<>();
 
+    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "delivery_id")   // 연관관계의 주인 Join되는 주체
     private Delivery delivery;

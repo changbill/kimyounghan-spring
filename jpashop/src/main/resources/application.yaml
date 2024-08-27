@@ -7,11 +7,14 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create  # 애플리케이션 실행 시점에 테이블을 drop하고 다시 생성
+      ddl-auto: create
     properties:
       hibernate:
         format_sql: true
-#       show_sql: true  # System.out에 hibernate 실행 SQL을 남긴다
+        default_batch_fetch_size: 100   # 글로벌 batch size 지정
+        show_sql: true  # System.out에 hibernate 실행 SQL을 남긴다
+#    open-in-view: false
+
 logging:
   level:
     org.hibernate.sql: debug  # logger를 통해 hibernate 실행 SQL을 남긴다
